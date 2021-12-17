@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aaronx.artplace.composables.BottomBar
 import com.aaronx.artplace.ui.theme.ArtPlaceTheme
+import com.aaronx.artplace.ui.theme.IconColor
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ fun TopBar(){
         , verticalAlignment = Alignment.CenterVertically){
 
         Image(painter = painterResource(id = R.drawable.ic_logo_text)
-            , colorFilter = ColorFilter.tint(MaterialTheme.colors.secondaryVariant)
+            , colorFilter = ColorFilter.tint(MaterialTheme.colors.IconColor)
             , modifier = Modifier.width(150.dp)
             , alignment = Alignment.Center
             , contentDescription = "Application title")
@@ -58,7 +59,7 @@ fun TopBar(){
 
 
 
-@Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
+@Preview(showBackground = true, showSystemUi = false, uiMode = UI_MODE_NIGHT_NO)
 @Composable
 fun DefaultPreview() {
     MainActivityContent()

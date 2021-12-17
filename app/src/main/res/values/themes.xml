@@ -10,9 +10,8 @@
         <item name="colorSecondaryVariant">@color/OceanBlue700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@color/OceanBlue200</item>
     </style>
 
     <style name="Theme.ArtPlace.NoActionBar">

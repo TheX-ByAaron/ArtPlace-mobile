@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.aaronx.artplace.R
+import com.aaronx.artplace.ui.theme.IconColor
+import com.aaronx.artplace.ui.theme.SurfaceColor
 
 @Composable
 fun BottomBar(){
@@ -35,7 +37,7 @@ fun BottomBar(){
             .padding(all = 8.dp)
             .fillMaxWidth()
             .height(70.dp)
-            .background(color = Color.White, shape = MaterialTheme.shapes.medium)
+            .background(color = MaterialTheme.colors.SurfaceColor, shape = MaterialTheme.shapes.medium)
             .padding(top = 5.dp, bottom = 5.dp)
             , verticalAlignment = Alignment.CenterVertically
             , horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -65,13 +67,13 @@ fun BottomBar(){
 fun BottomBarItem(isSelected: Boolean,
                   icon: Int){
     val selectedBarColor by animateColorAsState(targetValue = MaterialTheme.colors.primaryVariant)
-    val itemSelectedColor by animateColorAsState(targetValue = MaterialTheme.colors.background)
+    val itemSelectedColor by animateColorAsState(targetValue = MaterialTheme.colors.surface)
 
     Column(modifier= Modifier
         .requiredWidth(60.dp)
         .height(60.dp)
         .background(
-            if (isSelected) itemSelectedColor else Color.White, shape = MaterialTheme.shapes.small
+            if (isSelected) itemSelectedColor else MaterialTheme.colors.SurfaceColor, shape = MaterialTheme.shapes.small
         )
         , horizontalAlignment = Alignment.CenterHorizontally
         , verticalArrangement = if(isSelected) Arrangement.SpaceBetween else Arrangement.Center){
@@ -81,7 +83,7 @@ fun BottomBarItem(isSelected: Boolean,
             .size(30.dp)
             , painter = painterResource(id = icon)
             , contentDescription = "Bottom bar item"
-            , colorFilter = ColorFilter.tint(if(isSelected) selectedBarColor else Color.Black))
+            , colorFilter = ColorFilter.tint(if(isSelected) selectedBarColor else MaterialTheme.colors.IconColor))
 
         AnimatedVisibility(visible = isSelected) {
             Surface(modifier = Modifier
@@ -96,7 +98,7 @@ fun BottomBarItem(isSelected: Boolean,
 
 @Composable
 fun ProfileItem(isSelected: Boolean){
-    val selectedColor by animateColorAsState(targetValue = MaterialTheme.colors.primaryVariant)
+    val selectedColor by animateColorAsState(targetValue = MaterialTheme.colors.primary)
 
     Box(modifier= Modifier
         .height(60.dp)
@@ -108,6 +110,6 @@ fun ProfileItem(isSelected: Boolean){
             ,modifier = Modifier
                 .size(35.dp)
                 .clip(CircleShape)
-                .border(3.dp, if (isSelected) selectedColor else Color.Black, CircleShape))
+                .border(3.dp, if (isSelected) selectedColor else MaterialTheme.colors.IconColor, CircleShape))
     }
 }
