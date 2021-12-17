@@ -10,6 +10,7 @@ private val DarkColorPalette = darkColors(
     primary = OceanBlue200,
     primaryVariant = OceanBlue500,
     secondary = OceanBlue700,
+    secondaryVariant = OceanBlue200,
     background = RoyalBlack,
 )
 
@@ -17,6 +18,7 @@ private val LightColorPalette = lightColors(
     primary = OceanBlue500,
     primaryVariant = OceanBlue700,
     secondary = OceanBlue700,
+    secondaryVariant = RoyalBlack,
     background = OceanBlue200,
     /* Other default colors to override
     background = Color.White,
