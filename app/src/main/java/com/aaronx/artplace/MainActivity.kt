@@ -42,8 +42,8 @@ fun MainActivityContent(){
     val navController = rememberNavController()
     val routes = arrayListOf(NavRoute(R.drawable.ic_home, "Home")
         , NavRoute(R.drawable.ic_bell, "Notifications")
-        , NavRoute(R.drawable.ic_messages, "Messages")
-        , NavRoute(R.drawable.ic_setting, "Settings")
+        , NavRoute(R.drawable.ic_dms, "Messages")
+        , NavRoute(R.drawable.ic_heart, "Favorites")
     )
     
     ArtPlaceTheme {
@@ -60,7 +60,7 @@ fun MainActivityContent(){
                                   composable("Home"){  HomeFragment()  }
                                   composable("Notifications"){  NotificationFragment() }
                                   composable("Messages"){ MessagesFragment()  }
-                                  composable("Settings"){  SettingsFragment()  }
+                                  composable("Favorites"){  FavoritesFragment()  }
                                   composable("Profile"){  ProfileFragment()  }
                               }
                     },

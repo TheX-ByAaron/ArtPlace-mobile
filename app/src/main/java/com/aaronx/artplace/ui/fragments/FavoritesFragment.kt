@@ -16,13 +16,12 @@ import com.aaronx.artplace.ui.theme.windowBackground
 
 @Preview(showBackground = true, showSystemUi = false)
 @Composable
-fun SettingsFragment(){
+fun FavoritesFragment(){
     Box(modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight()
         .background(color = MaterialTheme.colors.windowBackground, shape = MaterialTheme.shapes.ViewShape)
         , contentAlignment = Alignment.Center){
-
         Text("Settings fragment")
     }
 

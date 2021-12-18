@@ -154,7 +154,7 @@ fun FeedCard(){
             .wrapContentHeight()){
 
             AnimatedButton(modifier = Modifier.size(45.dp))
-
+            IconButton(modifier = Modifier.padding(start = 4.dp).size(45.dp))
 
         }
 
