@@ -4,6 +4,8 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,16 +13,20 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.aaronx.artplace.ui.composables.BottomBar
+import com.aaronx.artplace.ui.composables.IconButton
 import com.aaronx.artplace.ui.composables.NavRoute
 import com.aaronx.artplace.ui.fragments.*
 import com.aaronx.artplace.ui.theme.ArtPlaceTheme
@@ -48,7 +54,7 @@ fun MainActivityContent(){
     
     ArtPlaceTheme {
         Surface(color = MaterialTheme.colors.background ) {
-            Scaffold(topBar = { TopBar()},
+            Scaffold(topBar = { TopBar(navController)},
 
                     content = {
                               NavHost(navController = navController
@@ -73,19 +79,48 @@ fun MainActivityContent(){
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun TopBar(){
+fun TopBar(navController: NavController){
+
+    val currentBackEntry = navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackEntry.value?.destination?.route
+
     Row(modifier = Modifier
+        .padding(start = 8.dp, end = 8.dp)
         .fillMaxWidth()
         .height(56.dp)
-        ,horizontalArrangement = Arrangement.Center
+        ,horizontalArrangement = Arrangement.SpaceBetween
         , verticalAlignment = Alignment.CenterVertically){
 
         Image(painter = painterResource(id = R.drawable.ic_logo_text)
             , colorFilter = ColorFilter.tint(MaterialTheme.colors.IconColor)
-            , modifier = Modifier.width(150.dp)
-            , alignment = Alignment.Center
+            , modifier = Modifier
+                .padding(start = 8.dp)
+                .width(120.dp)
+            , alignment = Alignment.CenterStart
             , contentDescription = "Application title")
+
+        Row(horizontalArrangement = Arrangement.End){
+            AnimatedVisibility(currentRoute == "Home") {
+                IconButton(modifier = Modifier
+                    .padding(start = 4.dp)
+                    .size(45.dp),R.drawable.ic_add_post)
+            }
+
+            AnimatedVisibility(currentRoute == "Messages"){
+                IconButton(modifier = Modifier
+                    .padding(start = 4.dp)
+                    .size(45.dp),R.drawable.ic_users)
+            }
+
+            AnimatedVisibility(currentRoute == "Profile"){
+                IconButton(modifier = Modifier
+                    .padding(start = 4.dp)
+                    .size(45.dp),R.drawable.ic_setting)
+            }
+
+        }
     }
 }
 
@@ -94,5 +129,5 @@ fun TopBar(){
 @Preview(showBackground = true, showSystemUi = false, uiMode = UI_MODE_NIGHT_NO)
 @Composable
 fun DefaultPreview() {
-    MainActivityContent()
+
 }

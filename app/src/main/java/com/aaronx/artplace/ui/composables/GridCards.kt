@@ -158,7 +158,8 @@ fun FeedCard(){
             AnimatedButton(modifier = Modifier.size(45.dp))
             IconButton(modifier = Modifier
                 .padding(start = 4.dp)
-                .size(45.dp))
+                .size(45.dp)
+                , R.drawable.ic_messages)
 
         }
 
