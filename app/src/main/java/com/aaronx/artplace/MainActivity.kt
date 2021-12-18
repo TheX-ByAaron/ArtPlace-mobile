@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -24,6 +25,7 @@ import com.aaronx.artplace.ui.composables.NavRoute
 import com.aaronx.artplace.ui.fragments.*
 import com.aaronx.artplace.ui.theme.ArtPlaceTheme
 import com.aaronx.artplace.ui.theme.IconColor
+import com.aaronx.artplace.ui.theme.ViewShape
 import com.aaronx.artplace.ui.theme.windowBackground
 
 class MainActivity : ComponentActivity() {
@@ -50,7 +52,11 @@ fun MainActivityContent(){
 
                     content = {
                               NavHost(navController = navController
-                                  , startDestination = "Home"){
+                                  , startDestination = "Home"
+                                  , modifier = Modifier.background(
+                                      color = MaterialTheme.colors.windowBackground,
+                                      shape = MaterialTheme.shapes.ViewShape
+                                  )){
                                   composable("Home"){  HomeFragment()  }
                                   composable("Notifications"){  NotificationFragment() }
                                   composable("Messages"){ MessagesFragment()  }

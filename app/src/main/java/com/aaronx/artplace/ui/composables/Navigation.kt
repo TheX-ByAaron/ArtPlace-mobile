@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import coil.compose.rememberImagePainter
 import com.aaronx.artplace.R
 import com.aaronx.artplace.ui.theme.IconColor
 import com.aaronx.artplace.ui.theme.SurfaceColor
@@ -117,13 +117,14 @@ fun BottomBarItem(isSelected: Boolean,
 @Composable
 fun ProfileItem(isSelected: Boolean){
     val selectedColor by animateColorAsState(targetValue = MaterialTheme.colors.primary)
+    val profilePainter = rememberImagePainter(data = R.drawable.profile)
 
     Box(modifier= Modifier
         .height(50.dp)
         .requiredWidth(50.dp)
         , contentAlignment = Alignment.Center){
 
-        Image(painter = painterResource(id = R.drawable.profile)
+        Image(painter = profilePainter
             , contentDescription = "Profile icon"
             ,modifier = Modifier
                 .size(35.dp)
