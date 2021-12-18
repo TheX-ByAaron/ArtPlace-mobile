@@ -80,9 +80,9 @@ fun AnimatedButton(modifier: Modifier = Modifier){
 }
 
 @Composable
-fun IconButton(modifier: Modifier = Modifier){
+fun IconButton(modifier: Modifier = Modifier, icon: Int){
 
-    Image(painter = painterResource(id = R.drawable.ic_messages)
+    Image(painter = painterResource(id = icon)
         , contentDescription = "icon button"
         , colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
         , modifier = modifier
@@ -96,7 +96,7 @@ fun IconButton(modifier: Modifier = Modifier){
 @Composable
 fun ButtonsPreview(){
     ArtPlaceTheme {
-        IconButton(modifier = Modifier.size(45.dp))
+        IconButton(modifier = Modifier.size(45.dp), R.drawable.ic_messages)
     }
 
 }
