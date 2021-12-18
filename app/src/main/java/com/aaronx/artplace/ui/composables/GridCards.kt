@@ -23,6 +23,7 @@ import coil.compose.rememberImagePainter
 import com.aaronx.artplace.R
 import com.aaronx.artplace.ui.theme.ArtPlaceTheme
 import com.aaronx.artplace.ui.theme.OceanBlue500
+import com.aaronx.artplace.ui.theme.SurfaceColor
 
 
 @Composable
@@ -57,7 +58,7 @@ fun NotificationCard(){
         .fillMaxWidth()
         .wrapContentHeight()
         .clip(shape = MaterialTheme.shapes.large)
-        .background(color = MaterialTheme.colors.background)
+        .background(color = MaterialTheme.colors.SurfaceColor)
         .clickable { isExpanded.value = !isExpanded.value }
         .animateContentSize()
         , verticalAlignment = Alignment.Top){
@@ -97,10 +98,15 @@ fun NotificationCard(){
     }
 }
 
+@Composable
+fun FeedCard(){
+
+}
+
 @Preview
 @Composable
 fun PreviewPostCard(){
     ArtPlaceTheme {
-        NotificationCard()
+        FeedCard()
     }
 }
