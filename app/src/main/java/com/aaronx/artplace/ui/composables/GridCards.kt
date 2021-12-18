@@ -149,7 +149,12 @@ fun FeedCard(){
                 .defaultMinSize(minHeight = 100.dp)
                 .clip(shape = MaterialTheme.shapes.medium))
 
-        Row{
+        Row(modifier = Modifier
+            .padding(bottom = 8.dp, start = 8.dp, end = 8.dp)
+            .wrapContentHeight()){
+
+            AnimatedButton(modifier = Modifier.size(45.dp))
+
 
         }
 
