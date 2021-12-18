@@ -1,4 +1,4 @@
-package com.aaronx.artplace.composables
+package com.aaronx.artplace.ui.composables
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -15,44 +15,52 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.aaronx.artplace.R
 import com.aaronx.artplace.ui.theme.IconColor
 import com.aaronx.artplace.ui.theme.SurfaceColor
 
+data class NavRoute(var icon: Int = 0,var Route:String)
+
 @Composable
-fun BottomBar(){
+fun BottomBar(navController: NavController, Routes : ArrayList<NavRoute>, profileRoute: String){
+
     var isSelected by remember{ mutableStateOf(0) }
-    val iconList = arrayListOf(R.drawable.ic_home
-        , R.drawable.ic_bell
-        ,R.drawable.ic_messages
-        ,R.drawable.ic_setting)
 
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
 
         Row(modifier = Modifier
             .padding(all = 8.dp)
             .fillMaxWidth()
-            .height(70.dp)
-            .background(color = MaterialTheme.colors.SurfaceColor, shape = MaterialTheme.shapes.medium)
+            .height(60.dp)
+            .background(color = MaterialTheme.colors.SurfaceColor
+                , shape = MaterialTheme.shapes.medium)
             .padding(top = 5.dp, bottom = 5.dp)
+
             , verticalAlignment = Alignment.CenterVertically
             , horizontalArrangement = Arrangement.SpaceEvenly) {
 
-            iconList.forEachIndexed { index, icon ->
+            Routes.forEachIndexed { index, route ->
                 Box(modifier = Modifier
                     .clip(MaterialTheme.shapes.medium)
-                    .clickable { isSelected = index }){
-                    BottomBarItem(isSelected == index,icon)
+                    .clickable {
+                        isSelected = index
+                        navController.navigate(route.Route)
+                    }){
+                    BottomBarItem(isSelected == index,route.icon)
                 }
             }
+
             Box(modifier = Modifier
                 .clip(MaterialTheme.shapes.medium)
-                .clickable { isSelected = iconList.size }){
-                ProfileItem(isSelected = isSelected == iconList.size)
+                .clickable {
+                    isSelected = Routes.size
+                    navController.navigate(profileRoute)
+                }){
+                ProfileItem(isSelected = isSelected == Routes.size)
             }
 
 
@@ -70,8 +78,8 @@ fun BottomBarItem(isSelected: Boolean,
     val itemSelectedColor by animateColorAsState(targetValue = MaterialTheme.colors.surface)
 
     Column(modifier= Modifier
-        .requiredWidth(60.dp)
-        .height(60.dp)
+        .requiredWidth(50.dp)
+        .height(50.dp)
         .background(
             if (isSelected) itemSelectedColor else MaterialTheme.colors.SurfaceColor, shape = MaterialTheme.shapes.small
         )
@@ -88,7 +96,7 @@ fun BottomBarItem(isSelected: Boolean,
         AnimatedVisibility(visible = isSelected) {
             Surface(modifier = Modifier
                 .height(5.dp)
-                .width(40.dp)
+                .width(35.dp)
                 ,color = selectedBarColor
                 , shape = MaterialTheme.shapes.medium){}
         }
@@ -101,7 +109,7 @@ fun ProfileItem(isSelected: Boolean){
     val selectedColor by animateColorAsState(targetValue = MaterialTheme.colors.primary)
 
     Box(modifier= Modifier
-        .height(60.dp)
+        .height(50.dp)
         .requiredWidth(50.dp)
         , contentAlignment = Alignment.Center){
 
