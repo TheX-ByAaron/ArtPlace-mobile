@@ -30,7 +30,7 @@ fun HomeFragment(){
         .fillMaxWidth()
         .fillMaxHeight()){
 
-        LazyColumn(modifier = Modifier.padding(start = 8.dp, end = 16.dp)){
+        LazyColumn(modifier = Modifier.padding(start = 8.dp, end = 8.dp)){
             item{
                 StoryRow()
             }

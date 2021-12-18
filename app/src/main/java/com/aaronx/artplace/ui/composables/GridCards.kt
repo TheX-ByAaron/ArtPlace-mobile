@@ -14,6 +14,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -100,7 +101,59 @@ fun NotificationCard(){
 
 @Composable
 fun FeedCard(){
+    val imagePainter = rememberImagePainter(data = R.drawable.profile)
+    val profilePainter = rememberImagePainter(data = R.drawable.profile)
 
+    Column(modifier = Modifier
+        .padding(8.dp)
+        .fillMaxWidth()
+        .clip(shape = MaterialTheme.shapes.large)
+        .background(color = MaterialTheme.colors.SurfaceColor)
+        .animateContentSize()) {
+
+        Row(modifier = Modifier
+            .padding(top = 8.dp, bottom = 4.dp, start = 8.dp, end = 8.dp)
+            , verticalAlignment = Alignment.CenterVertically){
+
+            Image(painter = profilePainter
+                , contentDescription = "user profile image"
+                , modifier = Modifier
+                    .padding(end = 8.dp)
+                    .size(30.dp)
+                    .clip(CircleShape))
+
+            Column {
+                Text(text = "Aaron nerox"
+                    , maxLines = 1
+                    , overflow = TextOverflow.Ellipsis
+                    , style = MaterialTheme.typography.body1
+                    , fontWeight = FontWeight.SemiBold
+                    , fontSize = 14.sp
+                    , modifier = Modifier.padding(bottom = 2.dp))
+
+                Text(text = "The white house"
+                    , maxLines = 1
+                    , overflow = TextOverflow.Ellipsis
+                    , color = MaterialTheme.colors.primary
+                    , style = MaterialTheme.typography.caption
+                    , fontSize = 12.sp)
+            }
+        }
+
+        Image(painter = imagePainter
+            , contentDescription = "post image"
+            , contentScale = ContentScale.Fit
+            , modifier = Modifier
+                .padding(all = 8.dp)
+                .fillMaxWidth()
+                .defaultMinSize(minHeight = 100.dp)
+                .clip(shape = MaterialTheme.shapes.medium))
+
+        Row{
+
+        }
+
+    }
 }
 
 @Preview
