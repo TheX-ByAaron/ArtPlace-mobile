@@ -3,10 +3,12 @@ package com.aaronx.artplace.ui.composables
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -154,10 +156,59 @@ fun FeedCard(){
             .wrapContentHeight()){
 
             AnimatedButton(modifier = Modifier.size(45.dp))
-            IconButton(modifier = Modifier.padding(start = 4.dp).size(45.dp))
+            IconButton(modifier = Modifier
+                .padding(start = 4.dp)
+                .size(45.dp))
 
         }
 
+    }
+}
+
+@Composable
+fun MessageCard(){
+    val contactPainter = rememberImagePainter(data = R.drawable.profile)
+
+    Row(modifier = Modifier
+        .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp)
+        .fillMaxWidth()
+        .wrapContentHeight()
+        .background(color = MaterialTheme.colors.SurfaceColor
+                , shape = MaterialTheme.shapes.large)
+        , verticalAlignment = Alignment.CenterVertically){
+
+        Box {
+            Image(painter = contactPainter
+                , contentDescription = "contact profile picture"
+                , modifier = Modifier
+                    .padding(all = 8.dp)
+                    .size(45.dp)
+                    .clip(CircleShape))
+
+            Surface(modifier = Modifier
+                .padding(all = 8.dp)
+                .size(15.dp)
+                .clip(CircleShape)
+                .border(2.dp, color = MaterialTheme.colors.SurfaceColor, CircleShape)
+                .align(Alignment.BottomEnd)
+                , color = MaterialTheme.colors.primary) {}
+        }
+
+        Column {
+            Text(text = "No name here"
+                , fontSize = 16.sp
+                , fontWeight = FontWeight.SemiBold
+                , modifier = Modifier.padding(bottom = 4.dp, end = 8.dp)
+                , maxLines = 1
+                , overflow = TextOverflow.Ellipsis)
+
+            Text(text = "This is the message content and i need it to be big"
+                , fontSize = 14.sp
+                , fontWeight = FontWeight.Normal
+                , modifier = Modifier.padding(end = 8.dp)
+                , maxLines = 1
+                , overflow = TextOverflow.Ellipsis)
+        }
     }
 }
 
@@ -165,6 +216,6 @@ fun FeedCard(){
 @Composable
 fun PreviewPostCard(){
     ArtPlaceTheme {
-        FeedCard()
+        MessageCard()
     }
 }
