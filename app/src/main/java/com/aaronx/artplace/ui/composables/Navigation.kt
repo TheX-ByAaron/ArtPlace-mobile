@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.aaronx.artplace.R
 import com.aaronx.artplace.ui.theme.IconColor
 import com.aaronx.artplace.ui.theme.SurfaceColor
@@ -28,7 +30,7 @@ data class NavRoute(var icon: Int = 0,var Route:String)
 @Composable
 fun BottomBar(navController: NavController, Routes : ArrayList<NavRoute>, profileRoute: String){
 
-    var isSelected by remember{ mutableStateOf(0) }
+    val isSelected = navController.currentBackStackEntryAsState()
 
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
 
@@ -36,31 +38,38 @@ fun BottomBar(navController: NavController, Routes : ArrayList<NavRoute>, profil
             .padding(all = 8.dp)
             .fillMaxWidth()
             .height(60.dp)
-            .background(color = MaterialTheme.colors.SurfaceColor
-                , shape = MaterialTheme.shapes.medium)
+            .background(
+                color = MaterialTheme.colors.SurfaceColor, shape = MaterialTheme.shapes.medium
+            )
             .padding(top = 5.dp, bottom = 5.dp)
 
             , verticalAlignment = Alignment.CenterVertically
             , horizontalArrangement = Arrangement.SpaceEvenly) {
 
-            Routes.forEachIndexed { index, route ->
+            Routes.forEachIndexed { _, route ->
                 Box(modifier = Modifier
                     .clip(MaterialTheme.shapes.medium)
                     .clickable {
-                        isSelected = index
-                        navController.navigate(route.Route)
+                        navController.navigate(route.Route) {
+                            launchSingleTop = true
+                            popUpTo("Home")
+                            restoreState = true
+                        }
                     }){
-                    BottomBarItem(isSelected == index,route.icon)
+                    BottomBarItem(isSelected.value?.destination?.route == route.Route,route.icon)
                 }
             }
 
             Box(modifier = Modifier
                 .clip(MaterialTheme.shapes.medium)
                 .clickable {
-                    isSelected = Routes.size
-                    navController.navigate(profileRoute)
+                    navController.navigate(profileRoute) {
+                        launchSingleTop = true
+                        popUpTo("Home")
+                        restoreState = true
+                    }
                 }){
-                ProfileItem(isSelected = isSelected == Routes.size)
+                ProfileItem(isSelected = isSelected.value?.destination?.route == profileRoute)
             }
 
 
@@ -81,7 +90,8 @@ fun BottomBarItem(isSelected: Boolean,
         .requiredWidth(50.dp)
         .height(50.dp)
         .background(
-            if (isSelected) itemSelectedColor else MaterialTheme.colors.SurfaceColor, shape = MaterialTheme.shapes.small
+            if (isSelected) itemSelectedColor else MaterialTheme.colors.SurfaceColor,
+            shape = MaterialTheme.shapes.small
         )
         , horizontalAlignment = Alignment.CenterHorizontally
         , verticalArrangement = if(isSelected) Arrangement.SpaceBetween else Arrangement.Center){
@@ -118,6 +128,10 @@ fun ProfileItem(isSelected: Boolean){
             ,modifier = Modifier
                 .size(35.dp)
                 .clip(CircleShape)
-                .border(3.dp, if (isSelected) selectedColor else MaterialTheme.colors.IconColor, CircleShape))
+                .border(
+                    3.dp,
+                    if (isSelected) selectedColor else MaterialTheme.colors.IconColor,
+                    CircleShape
+                ))
     }
 }

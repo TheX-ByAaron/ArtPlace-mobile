@@ -20,7 +20,7 @@ private val LightColorPalette = lightColors(
     primaryVariant = OceanBlue700,
     secondary = OceanBlue700,
     surface = OceanBlue200,
-    background = OceanBlue200,
+    background = Color.White,
 
     /* Other default colors to override
     background = Color.White,

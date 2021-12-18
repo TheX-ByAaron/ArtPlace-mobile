@@ -24,6 +24,7 @@ import com.aaronx.artplace.ui.composables.NavRoute
 import com.aaronx.artplace.ui.fragments.*
 import com.aaronx.artplace.ui.theme.ArtPlaceTheme
 import com.aaronx.artplace.ui.theme.IconColor
+import com.aaronx.artplace.ui.theme.windowBackground
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +60,7 @@ fun MainActivityContent(){
                     },
 
                     bottomBar = {
-                        BottomBar(navController,routes,"profile")
+                        BottomBar(navController,routes,"Profile")
                     }
             )
         }
