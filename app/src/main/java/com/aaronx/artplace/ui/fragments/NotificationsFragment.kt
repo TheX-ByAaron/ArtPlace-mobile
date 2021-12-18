@@ -46,7 +46,7 @@ fun NotificationFragment(){
                     , style = MaterialTheme.typography.subtitle2
                     , fontWeight = FontWeight.Bold
                     , fontSize = 18.sp
-                    , modifier = Modifier.padding(start = 4.dp ,bottom = 4.dp))
+                    , modifier = Modifier.padding(start = 4.dp ,bottom = 4.dp, top = 8.dp))
             }
 
             items(15){
