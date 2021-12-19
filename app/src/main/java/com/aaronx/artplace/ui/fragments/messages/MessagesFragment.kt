@@ -1,4 +1,4 @@
-package com.aaronx.artplace.ui.fragments
+package com.aaronx.artplace.ui.fragments.messages
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight

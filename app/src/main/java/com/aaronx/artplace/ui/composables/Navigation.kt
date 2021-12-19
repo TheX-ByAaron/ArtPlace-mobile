@@ -136,3 +136,59 @@ fun ProfileItem(isSelected: Boolean){
                 ))
     }
 }
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun TopBar(navController: NavController){
+
+    val currentBackEntry = navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackEntry.value?.destination?.route
+
+    Row(modifier = Modifier
+        .padding(start = 8.dp, end = 8.dp)
+        .fillMaxWidth()
+        .height(56.dp)
+        ,horizontalArrangement = Arrangement.SpaceBetween
+        , verticalAlignment = Alignment.CenterVertically){
+
+        Image(painter = painterResource(id = R.drawable.ic_logo_text)
+            , colorFilter = ColorFilter.tint(MaterialTheme.colors.IconColor)
+            , modifier = Modifier
+                .padding(start = 8.dp)
+                .width(120.dp)
+            , alignment = Alignment.CenterStart
+            , contentDescription = "Application title")
+
+        Row(horizontalArrangement = Arrangement.End){
+            AnimatedVisibility(currentRoute == "Home") {
+                IconButton(modifier = Modifier
+                    .padding(start = 4.dp)
+                    .size(45.dp),R.drawable.ic_add_post
+                    , onClick = {navController.navigateTo("AddPost")})
+            }
+
+            AnimatedVisibility(currentRoute == "Messages"){
+                IconButton(modifier = Modifier
+                    .padding(start = 4.dp)
+                    .size(45.dp),R.drawable.ic_users
+                    , onClick = {navController.navigateTo("People")})
+            }
+
+            AnimatedVisibility(currentRoute == "Profile"){
+                IconButton(modifier = Modifier
+                    .padding(start = 4.dp)
+                    .size(45.dp),R.drawable.ic_setting
+                    , onClick = {navController.navigateTo("Settings")})
+            }
+
+        }
+    }
+}
+
+
+fun NavController.navigateTo(route: String){
+    this.navigate(route){
+        launchSingleTop = true
+        restoreState = true
+    }
+}

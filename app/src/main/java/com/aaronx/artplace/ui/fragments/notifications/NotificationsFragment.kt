@@ -1,4 +1,4 @@
-package com.aaronx.artplace.ui.fragments
+package com.aaronx.artplace.ui.fragments.notifications
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box

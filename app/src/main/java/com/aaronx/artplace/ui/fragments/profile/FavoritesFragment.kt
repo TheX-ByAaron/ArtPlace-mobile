@@ -1,4 +1,4 @@
-package com.aaronx.artplace.ui.fragments
+package com.aaronx.artplace.ui.fragments.profile
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box

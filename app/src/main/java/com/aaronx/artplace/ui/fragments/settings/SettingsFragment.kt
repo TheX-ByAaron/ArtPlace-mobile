@@ -1,4 +1,4 @@
-package com.aaronx.artplace.ui.fragments
+package com.aaronx.artplace.ui.fragments.settings
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -9,13 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun PeopleFragment(){
+fun SettingsFragment(){
     Box(modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight()
         , contentAlignment = Alignment.Center){
 
-        Text("People fragment")
+        Text("Settings fragment ")
 
     }
 }
