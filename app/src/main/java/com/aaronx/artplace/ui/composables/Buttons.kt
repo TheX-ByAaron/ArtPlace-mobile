@@ -80,14 +80,16 @@ fun AnimatedButton(modifier: Modifier = Modifier){
 }
 
 @Composable
-fun IconButton(modifier: Modifier = Modifier, icon: Int){
+fun IconButton(modifier: Modifier = Modifier
+               , icon: Int
+               , onClick: () -> Unit = {}){
 
     Image(painter = painterResource(id = icon)
         , contentDescription = "icon button"
         , colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
         , modifier = modifier
             .clip(MaterialTheme.shapes.small)
-            .clickable { }
+            .clickable { onClick.invoke() }
             .padding(all = 8.dp))
 
 }
