@@ -13,3 +13,9 @@ val Shapes = Shapes(
 
 val Shapes.ViewShape : Shape
     get() = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp, bottomEnd = 0.dp, bottomStart = 0.dp)
+
+val Shapes.MessageSenderShape: Shape
+    get() = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp, bottomStart = 15.dp, bottomEnd = 5.dp)
+
+val Shapes.MessageReceiverShape: Shape
+    get() = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp, bottomStart = 5.dp, bottomEnd = 15.dp)

@@ -19,8 +19,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.aaronx.artplace.R
 import com.aaronx.artplace.ui.composables.AdvancedTextField
-import com.aaronx.artplace.ui.theme.ArtPlaceTheme
-import com.aaronx.artplace.ui.theme.SurfaceColor
+import com.aaronx.artplace.ui.theme.*
 
 @Composable
 fun ConversationFragment(){
@@ -32,16 +31,13 @@ fun ConversationFragment(){
         LazyColumn(modifier = Modifier
             .padding(horizontal = 8.dp)
             .fillMaxWidth()
-            .background(color = MaterialTheme.colors.SurfaceColor
-                , shape = MaterialTheme.shapes.large)
+            .background(
+                color = MaterialTheme.colors.SurfaceColor, shape = MaterialTheme.shapes.large
+            )
             .weight(1F)){
 
             items(20){index: Int ->
-                if(index % 2 == 0){
-                    ConversationMessage()
-                }else{
-                    ConversationMessage()
-                }
+                ConversationMessage(index % 2 == 0)
             }
         }
         AdvancedTextField(text = "Message")
@@ -55,8 +51,9 @@ fun ConversationHeader(){
     Row(modifier = Modifier
         .padding(all = 8.dp)
         .fillMaxWidth()
-        .background(MaterialTheme.colors.SurfaceColor
-            , shape = MaterialTheme.shapes.large)
+        .background(
+            MaterialTheme.colors.SurfaceColor, shape = MaterialTheme.shapes.large
+        )
         , verticalAlignment = Alignment.CenterVertically){
 
         Image(painter = profilePainter
@@ -85,15 +82,49 @@ fun ConversationHeader(){
 }
 
 @Composable
-fun ConversationMessage(){
+fun ConversationMessage(isSent: Boolean){
+    if(isSent){
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End){
 
+            Box(modifier = Modifier
+                .padding(all = 8.dp)
+                .fillMaxWidth(0.7F)
+                .background(
+                    color = MaterialTheme.colors.primary
+                    , shape = MaterialTheme.shapes.MessageSenderShape
+                )){
+
+                Text(text = "This is a message from the sender itself, to warn you that he is coming for you goddamit, yes i mean sucess."
+                    , modifier = Modifier.padding(8.dp))
+            }
+
+        }
+    }else{
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start){
+
+            Box(modifier = Modifier
+                .padding(all = 4.dp)
+                .fillMaxWidth(0.7F)
+                .background(
+                    color = MaterialTheme.colors.surface
+                    , shape = MaterialTheme.shapes.MessageReceiverShape
+                )){
+
+                Text(text = "This is a message from the sender itself, to warn you that he is coming for you goddamit, yes i mean sucess."
+                    , modifier = Modifier.padding(8.dp))
+            }
+
+        }
+    }
 }
 
 @Preview
 @Composable
 fun ConversationPreview(){
     ArtPlaceTheme {
-        ConversationHeader()
+        ConversationMessage(true)
     }
 
 }
