@@ -2,11 +2,13 @@ package com.aaronx.artplace.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aaronx.artplace.R
@@ -29,9 +31,8 @@ fun AdvancedTextField(){
 
         TextField(value = comment
             , onValueChange = { comment = it}
-            , modifier = Modifier
+            , modifier = Modifier.weight(1F)
                 .padding(start = 4.dp, end = 4.dp)
-                .width(IntrinsicSize.Max)
             ,shape = MaterialTheme.shapes.large
             , label = { Text("Add a comment...")}
             , singleLine = true
@@ -41,12 +42,11 @@ fun AdvancedTextField(){
                 disabledIndicatorColor = MaterialTheme.colors.SurfaceColor,
                 errorIndicatorColor = MaterialTheme.colors.SurfaceColor,
                 focusedIndicatorColor = MaterialTheme.colors.SurfaceColor,
-                unfocusedIndicatorColor = MaterialTheme.colors.SurfaceColor
-            ))
+                unfocusedIndicatorColor = MaterialTheme.colors.SurfaceColor))
 
         IconButton(icon = R.drawable.ic_dms
             , modifier = Modifier
-                .padding(4.dp)
+                .padding(8.dp)
                 .requiredSize(45.dp)
             , onClick = {})
     }
