@@ -1,4 +1,4 @@
-package com.aaronx.artplace
+package com.aaronx.artplace.activities
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.os.Bundle
@@ -10,13 +10,14 @@ import androidx.compose.foundation.background
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.aaronx.artplace.R
 import com.aaronx.artplace.ui.composables.BottomBar
 import com.aaronx.artplace.ui.composables.NavRoute
 import com.aaronx.artplace.ui.composables.TopBar
