@@ -17,7 +17,7 @@ import com.aaronx.artplace.ui.theme.SurfaceColor
 
 
 @Composable
-fun AdvancedTextField(){
+fun AdvancedTextField(text: String){
     var comment by remember{ mutableStateOf("")}
 
     Row(modifier = Modifier
@@ -34,7 +34,7 @@ fun AdvancedTextField(){
             , modifier = Modifier.weight(1F)
                 .padding(start = 4.dp, end = 4.dp)
             ,shape = MaterialTheme.shapes.large
-            , label = { Text("Add a comment...")}
+            , label = { Text(text)}
             , singleLine = true
             , maxLines = 1
             , colors = TextFieldDefaults.textFieldColors(
@@ -56,6 +56,6 @@ fun AdvancedTextField(){
 @Composable
 fun AdvancedTextFieldPreview(){
     ArtPlaceTheme {
-        AdvancedTextField()
+        AdvancedTextField("Add a comment")
     }
 }

@@ -71,7 +71,7 @@ fun CommentsFragment(){
 
         }
 
-        AdvancedTextField()
+        AdvancedTextField("Add a comment...")
     }
 }
 
