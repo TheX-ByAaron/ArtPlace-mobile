@@ -29,13 +29,17 @@ class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SplashScreen(this)
+            SplashScreen {
+                startActivity(Intent(this, MainActivity::class.java)).also {
+                    finish()
+                }
+            }
         }
     }
 }
 
 @Composable
-fun SplashScreen(context: Context){
+fun SplashScreen(action: () -> Unit){
     ArtPlaceTheme {
 
         Surface(color = MaterialTheme.colors.background) {
@@ -71,14 +75,14 @@ fun SplashScreen(context: Context){
             }
         }
 
-        startTimer(context)
+        startTimer(action)
     }
 }
 
 
-fun startTimer(context: Context){
+fun startTimer(action: ()->Unit = {}){
     Handler(Looper.getMainLooper())
         .postDelayed({
-             context.startActivity(Intent(context, MainActivity::class.java))
+             action.invoke()
         }, 2000)
 }
