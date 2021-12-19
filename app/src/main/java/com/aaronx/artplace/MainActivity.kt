@@ -74,9 +74,9 @@ fun MainActivityContent(){
                               color = MaterialTheme.colors.windowBackground,
                               shape = MaterialTheme.shapes.ViewShape)){
 
-                            composable("Home"){  HomeFragment()  }
+                            composable("Home"){  HomeFragment(navController)  }
                             composable("Notifications"){  NotificationFragment() }
-                            composable("Messages"){ MessagesFragment()  }
+                            composable("Messages"){ MessagesFragment(navController)  }
                             composable("Favorites"){  FavoritesFragment()  }
                             composable("Profile"){  ProfileFragment()  }
                             composable("Comments"){ CommentsFragment() }

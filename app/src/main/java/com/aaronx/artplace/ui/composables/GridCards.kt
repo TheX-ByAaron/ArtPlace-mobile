@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.aaronx.artplace.R
 import com.aaronx.artplace.ui.theme.ArtPlaceTheme
@@ -102,7 +103,7 @@ fun NotificationCard(){
 }
 
 @Composable
-fun FeedCard(){
+fun FeedCard(navController: NavController){
     val imagePainter = rememberImagePainter(data = R.drawable.profile)
     val profilePainter = rememberImagePainter(data = R.drawable.profile)
 
@@ -159,7 +160,8 @@ fun FeedCard(){
             IconButton(modifier = Modifier
                 .padding(start = 4.dp)
                 .size(45.dp)
-                , R.drawable.ic_messages)
+                , R.drawable.ic_messages
+                ,onClick = {navController.navigate("Comments")})
 
         }
 
@@ -167,7 +169,7 @@ fun FeedCard(){
 }
 
 @Composable
-fun MessageCard(){
+fun MessageCard(onClick: () -> Unit = {}){
     val contactPainter = rememberImagePainter(data = R.drawable.profile)
 
     Row(modifier = Modifier
@@ -176,6 +178,8 @@ fun MessageCard(){
         .wrapContentHeight()
         .background(color = MaterialTheme.colors.SurfaceColor
                 , shape = MaterialTheme.shapes.large)
+        .clip(shape = MaterialTheme.shapes.large)
+        .clickable { onClick.invoke() }
         , verticalAlignment = Alignment.CenterVertically){
 
         Box {
