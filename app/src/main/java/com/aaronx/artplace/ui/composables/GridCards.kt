@@ -16,6 +16,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -114,34 +115,7 @@ fun FeedCard(navController: NavController){
         .background(color = MaterialTheme.colors.SurfaceColor)
         .animateContentSize()) {
 
-        Row(modifier = Modifier
-            .padding(top = 8.dp, bottom = 4.dp, start = 8.dp, end = 8.dp)
-            , verticalAlignment = Alignment.CenterVertically){
-
-            Image(painter = profilePainter
-                , contentDescription = "user profile image"
-                , modifier = Modifier
-                    .padding(end = 8.dp)
-                    .size(30.dp)
-                    .clip(CircleShape))
-
-            Column {
-                Text(text = "Aaron nerox"
-                    , maxLines = 1
-                    , overflow = TextOverflow.Ellipsis
-                    , style = MaterialTheme.typography.body1
-                    , fontWeight = FontWeight.SemiBold
-                    , fontSize = 14.sp
-                    , modifier = Modifier.padding(bottom = 2.dp))
-
-                Text(text = "The white house"
-                    , maxLines = 1
-                    , overflow = TextOverflow.Ellipsis
-                    , color = MaterialTheme.colors.primary
-                    , style = MaterialTheme.typography.caption
-                    , fontSize = 12.sp)
-            }
-        }
+        PostHeader(profilePainter)
 
         Image(painter = imagePainter
             , contentDescription = "post image"
@@ -161,10 +135,89 @@ fun FeedCard(navController: NavController){
                 .padding(start = 4.dp)
                 .size(45.dp)
                 , R.drawable.ic_messages
-                ,onClick = {navController.navigate("Comments")})
+                ,onClick = {navController.navigateTo("Comments")})
 
         }
 
+    }
+}
+
+@Composable
+fun CommentPostCard(){
+    val imagePainter = rememberImagePainter(data = R.drawable.profile)
+    val profilePainter = rememberImagePainter(data = R.drawable.profile)
+
+    Column(modifier = Modifier
+        .padding(8.dp)
+        .fillMaxWidth()
+        .clip(shape = MaterialTheme.shapes.large)
+        .background(color = MaterialTheme.colors.SurfaceColor)
+        .animateContentSize()) {
+
+        PostHeader(profilePainter = profilePainter)
+
+        Row(modifier = Modifier.fillMaxWidth()
+            , verticalAlignment = Alignment.CenterVertically){
+
+            Image(painter = imagePainter
+                , contentDescription = "post image"
+                , contentScale = ContentScale.Crop
+                , modifier = Modifier
+                    .padding(all = 8.dp)
+                    .size(90.dp)
+                    .clip(shape = MaterialTheme.shapes.medium))
+
+            Column(modifier = Modifier.fillMaxWidth()) {
+
+                Row(verticalAlignment = Alignment.CenterVertically){
+                    AnimatedButton(modifier = Modifier.padding(end = 8.dp, start = 8.dp).size(45.dp))
+                    Text(text = "150 K")
+                }
+
+                Row(verticalAlignment = Alignment.CenterVertically){
+                    IconButton(icon = R.drawable.ic_messages
+                        ,modifier = Modifier
+                        .padding(start = 8.dp, end = 8.dp)
+                        .size(45.dp))
+
+                    Text(text = "120 K")
+                }
+            }
+        }
+
+
+    }
+}
+
+@Composable
+fun PostHeader(profilePainter: Painter){
+    Row(modifier = Modifier
+        .padding(top = 8.dp, bottom = 4.dp, start = 8.dp, end = 8.dp)
+        , verticalAlignment = Alignment.CenterVertically){
+
+        Image(painter = profilePainter
+            , contentDescription = "user profile image"
+            , modifier = Modifier
+                .padding(end = 8.dp)
+                .size(30.dp)
+                .clip(CircleShape))
+
+        Column {
+            Text(text = "Aaron nerox"
+                , maxLines = 1
+                , overflow = TextOverflow.Ellipsis
+                , style = MaterialTheme.typography.body1
+                , fontWeight = FontWeight.SemiBold
+                , fontSize = 14.sp
+                , modifier = Modifier.padding(bottom = 2.dp))
+
+            Text(text = "The white house"
+                , maxLines = 1
+                , overflow = TextOverflow.Ellipsis
+                , color = MaterialTheme.colors.primary
+                , style = MaterialTheme.typography.caption
+                , fontSize = 12.sp)
+        }
     }
 }
 
@@ -176,8 +229,9 @@ fun MessageCard(onClick: () -> Unit = {}){
         .padding(start = 8.dp, end = 8.dp, top = 4.dp, bottom = 4.dp)
         .fillMaxWidth()
         .wrapContentHeight()
-        .background(color = MaterialTheme.colors.SurfaceColor
-                , shape = MaterialTheme.shapes.large)
+        .background(
+            color = MaterialTheme.colors.SurfaceColor, shape = MaterialTheme.shapes.large
+        )
         .clip(shape = MaterialTheme.shapes.large)
         .clickable { onClick.invoke() }
         , verticalAlignment = Alignment.CenterVertically){
@@ -221,6 +275,6 @@ fun MessageCard(onClick: () -> Unit = {}){
 @Composable
 fun PreviewPostCard(){
     ArtPlaceTheme {
-        MessageCard()
+        CommentPostCard()
     }
 }
