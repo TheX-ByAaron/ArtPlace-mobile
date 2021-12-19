@@ -13,7 +13,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -43,9 +42,13 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainActivityContent(){
     val navController = rememberNavController()
+    val currentBackEntry = navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackEntry.value?.destination?.route
+
     val routes = arrayListOf(NavRoute(R.drawable.ic_home, "Home")
         , NavRoute(R.drawable.ic_bell, "Notifications")
         , NavRoute(R.drawable.ic_dms, "Messages")
@@ -54,25 +57,47 @@ fun MainActivityContent(){
     
     ArtPlaceTheme {
         Surface(color = MaterialTheme.colors.background ) {
-            Scaffold(topBar = { TopBar(navController)},
+            Scaffold(
+                    topBar = {
+                        AnimatedVisibility(currentRoute != "Comments"
+                                && currentRoute != "Conversation") {
+
+                            TopBar(navController)
+                        }
+
+                    },
 
                     content = {
-                              NavHost(navController = navController
-                                  , startDestination = "Home"
-                                  , modifier = Modifier.background(
-                                      color = MaterialTheme.colors.windowBackground,
-                                      shape = MaterialTheme.shapes.ViewShape
-                                  )){
-                                  composable("Home"){  HomeFragment()  }
-                                  composable("Notifications"){  NotificationFragment() }
-                                  composable("Messages"){ MessagesFragment()  }
-                                  composable("Favorites"){  FavoritesFragment()  }
-                                  composable("Profile"){  ProfileFragment()  }
-                              }
+                        NavHost(navController = navController
+                            , startDestination = "Home"
+                            , modifier = Modifier.background(
+                              color = MaterialTheme.colors.windowBackground,
+                              shape = MaterialTheme.shapes.ViewShape)){
+
+                            composable("Home"){  HomeFragment()  }
+                            composable("Notifications"){  NotificationFragment() }
+                            composable("Messages"){ MessagesFragment()  }
+                            composable("Favorites"){  FavoritesFragment()  }
+                            composable("Profile"){  ProfileFragment()  }
+                            composable("Comments"){ CommentsFragment() }
+                            composable("Settings"){ SettingsFragment() }
+                            composable("People"){ PeopleFragment() }
+                            composable("AddPost"){ AddPostFragment() }
+                            composable("Conversation"){ ConversationFragment() }
+
+                        }
                     },
 
                     bottomBar = {
-                        BottomBar(navController,routes,"Profile")
+                        AnimatedVisibility(currentRoute != "Comments"
+                                && currentRoute != "Conversation"
+                                && currentRoute != "Settings"
+                                && currentRoute != "AddPost"){
+
+                            BottomBar(navController,routes,"Profile")
+
+                        }
+
                     }
             )
         }
@@ -105,22 +130,33 @@ fun TopBar(navController: NavController){
             AnimatedVisibility(currentRoute == "Home") {
                 IconButton(modifier = Modifier
                     .padding(start = 4.dp)
-                    .size(45.dp),R.drawable.ic_add_post)
+                    .size(45.dp),R.drawable.ic_add_post
+                    , onClick = {navController.navigateTo("AddPost")})
             }
 
             AnimatedVisibility(currentRoute == "Messages"){
                 IconButton(modifier = Modifier
                     .padding(start = 4.dp)
-                    .size(45.dp),R.drawable.ic_users)
+                    .size(45.dp),R.drawable.ic_users
+                    , onClick = {navController.navigateTo("People")})
             }
 
             AnimatedVisibility(currentRoute == "Profile"){
                 IconButton(modifier = Modifier
                     .padding(start = 4.dp)
-                    .size(45.dp),R.drawable.ic_setting)
+                    .size(45.dp),R.drawable.ic_setting
+                    , onClick = {navController.navigateTo("Settings")})
             }
 
         }
+    }
+}
+
+
+fun NavController.navigateTo(route: String){
+    this.navigate(route){
+        launchSingleTop = true
+        restoreState = true
     }
 }
 
